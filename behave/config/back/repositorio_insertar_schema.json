@@ -1,0 +1,80 @@
+{
+  "iden": "236240",
+  "objetoRepositable": {
+    "codigo": "string",
+    "documento": {
+      "asunto": "asunto de ejemplo",
+      "codigoAplicacion": "GLERA",
+      "codigoCopiaVerificable": "CP3PKXSJKYIKZ8X",
+      "contenidos": [
+        {
+          "bytes": [
+            "string"
+          ],
+          "codigo": "string",
+          "firmantes": [
+            {
+              "apellido1": "string",
+              "apellido2": "string",
+              "cif": "string",
+              "email": "string",
+              "entidad": "string",
+              "nif": "string",
+              "nombre": "string",
+              "organizacionEmisora": "string",
+              "tipoCertificado": 0
+            }
+          ],
+          "mimeType": "application/pdf",
+          "nombre": "prueba.pdf",
+          "procedimiento": "string",
+          "tipo": "string",
+          "utilizable": "string",
+          "verificado": "string",
+          "visualizable": "string"
+        }
+      ],
+      "fechaCaducidad": "05-04-2024 13:00:00",
+      "fechaCreacion": "05-04-2024 13:00:00",
+      "formularios": [
+        {
+          "campos": [
+            {
+              "etiqueta": "string",
+              "infoExtendida": "string",
+              "valor": "string"
+            }
+          ],
+          "codigo": "string",
+          "nombre": "string"
+        }
+      ],
+      "iden": "string",
+      "nifTitular": "16598717P",
+      "nivel": "58",
+      "nombreTitular": "David",
+      "referencia": "string",
+      "secu": "string",
+      "subtipoDocumento": "020",
+      "tipoDocumento": "TD07"
+    },
+    "elemento": "string",
+    "encriptar": true,
+    "estructura": "string",
+    "firma": {
+      "firma": "string"
+    },
+    "iden": "string",
+    "nifDepositario": "16598717P",
+    "nombreDepositario": "David",
+    "secu": "string",
+    "sistema": "string",
+    "timeStamp": {
+      "fecha": "05-04-2024 13:00:00",
+      "token": "string"
+    },
+    "tipoVersion": "string",
+    "version": "string"
+  },
+  "secu": "1"
+}

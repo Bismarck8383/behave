@@ -22,10 +22,36 @@ Feature: Verify list endpoint of Gestion de Mensajes
   Scenario: Returns cancelar envio 200
     Given I prepare the URI "http://localhost:8505/gestionMensajes/" request with path "cancelarEnvio"
     When I set the query parameters for "cancelarEnvio"
-      | key             | value   |
-      | idenvio         |         |
-      | programaciones  |         |
-      | aplicacion      |         |
+      | key             | value |
+      | idEnvio         | int, 317253 |
+      | programaciones  | sin, ["23-04-2024T13:53:00Z"]|
+      | aplicacion      | GLERA |
+    And I prepare the request headers
+      | key        | value      |
+      | Accept     | */*        |
+      | Connection | keep-alive |
+    When I send a "POST" request
+    Then I should receive a status code of 200
+    And I capture and log the response details
+    And The response must match the expected schema for "cancelar_envio_schema"
+
+
+  @tc_enviar_email
+Scenario: Returns cancelar envio 200
+    Given I prepare the URI "http://localhost:8505/gestionMensajes/" request with path "enviarMail"
+    When I set the query parameters for "enviarMail"
+      | key                   | value                    |
+      | aplicacion            | GLERA                    |
+      | asunto                | PRUEBA_GLERA_GLDR        |
+      | destinatarios         | soporte_aapp@bosonit.com |
+      | mail_respuesta        | soporte_aapp@bosonit.com |
+      | nombreRespuesta       | soporte_aapp             |
+      | numerosDestinatarios  | int, 1                   |
+      | programaciones        | 23-04-2024T11:53:00Z     |
+      | telefonos_mails       | soporte_aapp@bosonit.com |
+      | texto                 | soporte_aapp@bosonit.com |
+      | textoHtml             | false                    |
+      | usuario               | Usuario                  |
     And I prepare the request headers
       | key        | value      |
       | Accept     | */*        |
@@ -33,38 +59,8 @@ Feature: Verify list endpoint of Gestion de Mensajes
     When I send a "GET" request to the endpoint
     Then I should receive a status code of 200
     And I capture and log the response details
-    And The response must match the expected schema for "cancelar_envio_schema"
-
-
-  @tc_enviar_email
-  Scenario: Returns cancelar envio 200
-    Given I prepare the URI "http://localhost:8505/gestionMensajes/" request with path "enviarMail"
-    When I set the query parameters for "enviarMail"
-      | key                   | value   |
-      | aplicacion            |         |
-      | asunto                |         |
-      | canal                 |         |
-      | destinatarios         |         |
-      | fechaReferencia       |         |
-      | mail_respuesta        |         |
-      | nomAdjuntos           |         |
-      | numerosDestinatarios  |         |
-      | numerosHorasValid     |         |
-      | programacion          |         |
-      | referencia            |         |
-      | telefonos_mails       |         |
-      | texto                 |         |
-      | textoHtml             |         |
-      | urgente               |         |
-      | usuario               |         |
-    And I prepare the request headers
-      | key        | value |
-      | Accept     | */*   |
-      | Connection | keep-alive |
-    When I send a "GET" request to the endpoint
-    Then I should receive a status code of 200
-    And I capture and log the response details
     And The response must match the expected schema for "enviar_email__schema"
+
 
   @tc_enviar_email_tecnico
   Scenario: Returns Enviar Email Tecnico 200

@@ -21,7 +21,7 @@ Feature: Verify signing endpoint for PDF and XML files
     @tc_firma_de_documento_PDF
     Scenario: Firma de documento PDF
         Given I have the PDF file
-        When I set the request body for PDF signing with alias "pruebas" and password "sabeurp"
+        When I set the request body for PDF signing with alias and password
         And I set the request headers as follows
             | Content-Type | application/json |
             | accept       | */*              |
@@ -32,7 +32,7 @@ Feature: Verify signing endpoint for PDF and XML files
     @tc_firma_de_documento_XML
     Scenario: Firma de documento XML
         Given I have the XML file
-        When I set the request body for XML signing with alias "pruebas" and password "sabeurp"
+        When I set the request body for XML signing with alias and password
         And I set the request headers as follows
             | Content-Type | application/json |
             | accept       | */*              |

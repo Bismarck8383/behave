@@ -21,19 +21,19 @@
   </head>
   <body>
     <div class="report-container">
-      
+      {% for tags in json_data %}
       <div class="row">
-        <h1 class="titulo_report text-center m-0">Gestión_Mensajes_Report</h1>
+        <h1 class="titulo_report text-center m-0">{{ tags ['tags'] [1] }}</h1>
       </div>
       <div class="row">
         <div class="d-flex justify-content-center align-items-center">
-          <p><b>Project name:</b> administracion_La_Rioja</p>
-          <p><b>Tests Cases:</b> Get_gestion_mensajes</p>
-          <p><b>Enviroment:</b> dev</p>
-          <p><b>Version:</b> tcs_0.0.1</p>
+          <p><b>Project name:</b> {{ tags ['tags'] [0] }}</p>
+          <p><b>Tests Cases:</b> {{ tags ['tags'] [2] }}</p>
+          <p><b>Enviroment:</b> {{ tags ['tags'] [3] }}</p>
+          <p><b>Version:</b> {{ tags ['tags'] [4] }}</p>
         </div>
       </div>
-      
+      {% endfor %}
       <hr class="m-0 border border-primary border-3 rounded-pill" />
 
       <div class="row">
@@ -50,172 +50,58 @@
 
       <br />
       <h4 id="totalSteps">Total Steps:</h4>
-      
+      {% for feature in json_data %}
       <div class="header-feature mb-3">
-        <h2>Feature: Feature: Verify list endpoint of Gestion de Mensajes</h2>
+        <h2>Feature: Feature: {{ feature['name'] }}</h2>
         <p>
           <strong>Total Steps Status:</strong>
-          <span class="failed">failed</span>
+          <span class="{{ feature['status'] }}">{{ feature['status'] }}</span>
         </p>
-        <p><strong>Location:</strong> features/gestionMensajes.feature:19</p>
+        <p><strong>Location:</strong> {{ feature['location'] }}</p>
         <p><strong>Date: </strong><span id="currentDateTime"></span></p>
       </div>
 
-      
+      {% for element in feature['elements'] %}
       <div class="body-feature">
-        <h3>Scenario: Returns cancelar envio 200</h3>
-        <p><strong>Tags:</strong> tc_cancelar_envio</p>
+        <h3>{{ element['keyword'] }}: {{ element['name'] }}</h3>
+        <p><strong>Tags:</strong> {{ element['tags'] | join(', ') }}</p>
         <p>
           <strong>Status:</strong>
-          <span class="failed">failed</span>
+          <span class="{{ element['status'] }}">{{ element['status'] }}</span>
         </p>
         <table class="table table-striped">
           <thead>
             <tr>
               <th>Step</th>
               <th class="text-center">Result</th>
-              <th class="duration-column">Duration</th>
+              <th class="duration-column">Duration (s)</th>
             </tr>
           </thead>
           <tbody>
-            
+            {% for step in element['steps'] %}
             <tr>
               <td>
                 <span class="first-word"
-                  >Given I prepare the URI "http://localhost:8505/gestionMensajes/" request with path "cancelarEnvio"</span
+                  >{{ step['keyword'] }} {{ step['name'] }}</span
                 >
               </td>
               <td
-                class="passed"
+                class="{{ step.get('result', {}).get('status', 'No Result') }}"
               >
-                passed
+                {{ step.get('result', {}).get('status', 'No Result') }}
               </td>
               <td
                 class="duration-cell"
-                data-duration="0.0029625892639160156"
+                data-duration="{{ step.get('result', {}).get('duration', 'N/A') }}"
               >
-                0.0029625892639160156
+                {{ step.get('result', {}).get('duration', 'N/A') }}
               </td>
             </tr>
-            
-            <tr>
-              <td>
-                <span class="first-word"
-                  >When I set the query parameters for "cancelarEnvio"</span
-                >
-              </td>
-              <td
-                class="passed"
-              >
-                passed
-              </td>
-              <td
-                class="duration-cell"
-                data-duration="0.0011265277862548828"
-              >
-                0.0011265277862548828
-              </td>
-            </tr>
-            
-            <tr>
-              <td>
-                <span class="first-word"
-                  >And I prepare the request headers</span
-                >
-              </td>
-              <td
-                class="passed"
-              >
-                passed
-              </td>
-              <td
-                class="duration-cell"
-                data-duration="0.0"
-              >
-                0.0
-              </td>
-            </tr>
-            
-            <tr>
-              <td>
-                <span class="first-word"
-                  >When I send a "POST" request</span
-                >
-              </td>
-              <td
-                class="passed"
-              >
-                passed
-              </td>
-              <td
-                class="duration-cell"
-                data-duration="0.0189669132232666"
-              >
-                0.0189669132232666
-              </td>
-            </tr>
-            
-            <tr>
-              <td>
-                <span class="first-word"
-                  >Then I should receive a status code of 200</span
-                >
-              </td>
-              <td
-                class="failed"
-              >
-                failed
-              </td>
-              <td
-                class="duration-cell"
-                data-duration="0.0"
-              >
-                0.0
-              </td>
-            </tr>
-            
-            <tr>
-              <td>
-                <span class="first-word"
-                  >And I capture and log the response details</span
-                >
-              </td>
-              <td
-                class="No Result"
-              >
-                No Result
-              </td>
-              <td
-                class="duration-cell"
-                data-duration="N/A"
-              >
-                N/A
-              </td>
-            </tr>
-            
-            <tr>
-              <td>
-                <span class="first-word"
-                  >And The response must match the expected schema for "cancelar_envio_schema"</span
-                >
-              </td>
-              <td
-                class="No Result"
-              >
-                No Result
-              </td>
-              <td
-                class="duration-cell"
-                data-duration="N/A"
-              >
-                N/A
-              </td>
-            </tr>
-            
+            {% endfor %}
           </tbody>
         </table>
       </div>
-       
+      {% endfor %} {% endfor %}
 
       <footer class="pt-3 pb-5">
         <div class="container text-md-start">
@@ -248,44 +134,20 @@
     <!--End Container principal-->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+        // Dar estilo a la primera palabra de la columna Step
+        let paragraphs = document.querySelectorAll("td span");
 
-     // Iterar sobre cada celda de resultado
-  const resultCells = document.querySelectorAll("td:nth-child(2)");
+        paragraphs.forEach(function (paragraph) {
+          let words = paragraph.textContent.trim().split(" ");
 
-  resultCells.forEach(function (cell) {
-    const result = cell.textContent.trim(); // Obtener el resultado del paso
+          let firstWord = words.shift();
 
-    // Definir el color según el resultado del paso
-    let color;
-    if (result === "passed") {
-      color = "green";
-    } else if (result === "failed") {
-      color = "red";
-    } else if (result === "No Result") {
-      color = "gray";
-    }
+          let firstWordSpan = document.createElement("span");
+          firstWordSpan.textContent = firstWord + " ";
+          firstWordSpan.classList.add("blue-word");
 
-    // Aplicar el color directamente al estilo de la celda
-    cell.style.color = color;
-  });
-
-  // Obtener todos los elementos <span> con la clase 'first-word'
-  const firstWordSpans = document.querySelectorAll("td span.first-word");
-
-  firstWordSpans.forEach(function (firstWordSpan) {
-    // Obtener el contenido de texto del span
-    let textContent = firstWordSpan.textContent.trim();
-
-    // Dividir el contenido de texto en palabras
-    let words = textContent.split(" ");
-
-    // Aplicar estilo solo a la primera palabra
-    let styledContent = "<span style='color: #03098A; margin-right: 10px;'>" + words[0] + "</span>" + words.slice(1).join(" ");
-
-    // Actualizar el contenido del span con la primera palabra estilizada
-    firstWordSpan.innerHTML = styledContent;
-  });
-
+          paragraph.innerHTML = firstWordSpan.outerHTML + words.join(" ");
+        });
 
         // Obtener la fecha y hora actual
         const currentDate = new Date();

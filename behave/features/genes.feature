@@ -3,7 +3,7 @@
 @Administracion_La_Rioja
 
 #title report
-@Test_Genes_Report
+@Genes_Report
 
 #All test cases
 @Get_Genes
@@ -12,7 +12,7 @@
 @dev
 
 #version
-@tcs_0.0.1
+@tcs_0.1
 
 Feature: Verify list endpoint of Genes
 

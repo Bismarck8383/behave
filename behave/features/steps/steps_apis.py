@@ -39,6 +39,8 @@ def step_impl_set_query_params(context, endpoint):
     :param endpoint: The endpoint for which to set the parameters.
     :return: None
     """
+    import json  # Importar el módulo json para la impresión
+
     # Obtener los parámetros del escenario
     params_table = context.table  # Obtiene la tabla de parámetros del escenario
 
@@ -48,16 +50,34 @@ def step_impl_set_query_params(context, endpoint):
         key = row['key'].strip()  # Obtener el nombre del parámetro
         value = row['value'].strip()  # Obtener el valor del parámetro
 
-        # Verificar si el valor debe ser convertido a entero
-        if value.startswith('int,'):
+        # Eliminar la palabra "sin" si está presente
+        if 'sin, ' in value:
+            value = value.replace('sin, ', '')
+
+        # Manejar valores que son arrays o estructuras JSON
+        if value.startswith("['") and value.endswith("']"):
+            value = json.loads(value.replace("'", '"'))  # Reemplazar comillas simples por dobles y convertir a JSON
+
+        elif value.startswith('int,'):
             value = int(value.split(',')[1].strip())
         elif value.lower() == 'null':
             value = None
+        elif value.lower() == 'true':
+            value = True
+        elif value.lower() == 'false':
+            value = False
 
         context.params[key] = value
 
     # Ejemplo de impresión de parámetros (para fines de depuración)
-    print(f"Query parameters for {endpoint}:{json.dumps(context.params, indent=4)}")
+    print(f"Query parameters for {endpoint}: {json.dumps(context.params, indent=4)}")
+
+
+
+
+
+
+
 
 
 @step('I prepare the request headers')
@@ -75,16 +95,30 @@ def step_impl_prepare_headers(context):
     context.headers = headers
 
 
-@step('I send a "GET" request to the endpoint')
-def step_impl_send_request(context):
+@step('I send a "{method}" request to the endpoint')
+def step_impl_send_request(context, method):
     """
-    Sends a GET request to the specified endpoint.
+    Sends a request (GET, POST, PUT, etc.) to the specified endpoint.
 
     :param context: The test context.
+    :param method: The HTTP method to use (GET, POST, PUT, etc.).
     :return: None
     """
-    # Send a GET request using requests library
-    response = requests.get(context.full_url, headers=context.headers, params=context.params)
+
+    # Determine the appropriate method to use
+    if method == "GET":
+        response = requests.get(context.full_url, headers=context.headers, params=context.params)
+    elif method == "POST":
+        response = requests.post(context.full_url, headers=context.headers, params=context.params,
+                                 json=context.request_body)
+    elif method == "PUT":
+        response = requests.put(context.full_url, headers=context.headers, params=context.params,
+                                json=context.request_body)
+    elif method == "DELETE":
+        response = requests.delete(context.full_url, headers=context.request_headers, params=context.params)
+    else:
+        # Handle unsupported methods
+        raise ValueError(f"Unsupported HTTP method: {method}")
 
     # Store the response in the context for later use
     context.response = response
@@ -93,8 +127,38 @@ def step_impl_send_request(context):
     print(json.dumps(context.full_url, indent=4))
 
 
+@step('I send a "{method}" request')
+def step_when_send_request(context, method):
+    """
+    Sends a HTTP request with the specified method using the URL stored in context.
+
+    :param context: The test context.
+    :param method: The HTTP method (GET, POST, PUT, DELETE, etc.).
+    :return: None
+    """
+    print(f"Sending {method} request to: {context.full_url}")
+
+    # Determine the request body based on the method and parameters
+    if method.upper() == 'POST':
+        request_body = context.params  # Use params as the request body for POST requests
+    else:
+        request_body = None
+
+    # Send the HTTP request using the specified method, headers, and request body
+    response = requests.request(method, context.full_url, headers=context.headers, json=request_body)
+
+    # Store the response in the context for later use
+    context.response = response
+
+    # Print request details for debugging purposes
+    print("Full URL:", response.url)
+    print("Headers:", response.request.headers)
+    print("Request Body:", json.dumps(request_body))
+
+
 @step('I should receive a status code of 200')
 def step_impl_verify_status_code(context):
+    print(context.response)
     """
     Verifies that the response status code is 200.
 
@@ -103,6 +167,7 @@ def step_impl_verify_status_code(context):
     """
     # Assert that the response status code is 200
     assert context.response.status_code == 200, f"Expected 200, got {context.response.status_code}"
+    print(f"code recibido{context.response.status_code}")
 
 
 @step("I capture and log the response details")
@@ -162,8 +227,8 @@ def step_given_have_pdf_file(context):
         assert False, f"Error loading PDF file: {e}"
 
 
-@step('I set the request body for PDF signing with alias "{alias}" and password "{password}"')
-def step_when_set_request_body_pdf(context, alias, password):
+@step('I set the request body for PDF signing with alias and password')
+def step_when_set_request_body_pdf(context):
     """
     Sets the request body for PDF signing with the provided alias and password, replacing the placeholder with the PDF file content.
 
@@ -177,8 +242,8 @@ def step_when_set_request_body_pdf(context, alias, password):
         "archive": "<base64_encoded_pdf_file>",
         "format": "PDF",
         "properties": {
-            "alias": alias,
-            "pwd": password
+            "alias": "pruebas",
+            "pwd": "sabeurp"
         }
     }
     # Encode the PDF file content to base64 and replace the placeholder in the request body
@@ -206,8 +271,8 @@ def step_given_have_xml_file(context):
         assert False, f"Error loading XML file: {e}"
 
 
-@step('I set the request body for XML signing with alias "{alias}" and password "{password}"')
-def step_when_set_request_body_xml(context, alias, password):
+@step('I set the request body for XML signing with alias and password')
+def step_when_set_request_body_xml(context):
     """
     Sets the request body for XML signing with the provided alias and password, replacing the placeholder with the XML file content.
 
@@ -221,8 +286,8 @@ def step_when_set_request_body_xml(context, alias, password):
         "archive": "<base64_encoded_xml_file>",
         "format": "XML",
         "properties": {
-            "alias": alias,
-            "pwd": password
+            "alias": "pruebas",
+            "pwd": "sabeurp"
         }
     }
     # Encode the XML file content to base64 and replace the placeholder in the request body
@@ -298,5 +363,3 @@ def step_validate_response_schema(context, schema_filename):
         # If validation fails, print error message and assert False to fail the step
         print(f"The response does not match the expected schema: {e.message}")
         assert False, f"Schema validation failed: {e}"
-
-

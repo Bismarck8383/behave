@@ -1,0 +1,143 @@
+{
+  "anyo": 0,
+  "codigoOperacion": "string",
+  "errores": [
+    {
+      "codigoSistema": "string",
+      "descripcion": "string",
+      "ejercicio": 0,
+      "nombreCampo": "string",
+      "numeroOperacion": 0,
+      "numeroOrden": 0
+    }
+  ],
+  "numeroOperacion": 0,
+  "pendienteEnviar": true,
+  "resultado": "string",
+  "situacionFacturas": [
+    {
+      "aplicaciones": [
+        {
+          "codigoOrganico1": "string",
+          "codigoOrganico2": "string",
+          "codigoOrganico3": "string",
+          "economicoArticulo": "string",
+          "economicoCapitulo": "string",
+          "economicoConcepto": "string",
+          "economicoSubConcepto": "string",
+          "ejercicio": 0,
+          "funcionalFuncion": "string",
+          "funcionalGrupo": "string",
+          "funcionalPrograma": "string",
+          "funcionalSubFuncion": "string",
+          "funcionalSubPrograma": "string",
+          "territorial": "string",
+          "denominacion": "string",
+          "importe": 0,
+          "numeroDocumento": 0,
+          "orden": 0,
+          "iremanente": "string"
+        }
+      ],
+      "apunteNumero": 0,
+      "apunteOrganicoCodigoOrganico": "string",
+      "apunteOrganicoNumero": 0,
+      "apunteOrganicoTipo": "string",
+      "apunteTipo": "string",
+      "conceptoResumido": "string",
+      "ctaFinancieraPagoN1": "string",
+      "ctaFinancieraPagoN2": "string",
+      "ctaFinancieraPagoOrden": "string",
+      "ctaFinancieraPagoTipo": "string",
+      "documento": "string",
+      "expediente": {
+        "codigo": "string",
+        "denSistemaAdjudicacion": "string",
+        "denominacionConvenio": "string",
+        "denominacionTipo": "string",
+        "descripcionExpediente": "string",
+        "esConvenio": "string",
+        "finalidad": "string",
+        "financiadoRT": "string",
+        "nominativo": "string",
+        "normativa": "string",
+        "proyectoGastos": 0,
+        "sistemaAdjudicacion": "string",
+        "subproyGastos": 0,
+        "tipo": 0
+      },
+      "fechaContable": "string",
+      "fechaFinJustificacionDiferida": "string",
+      "importeAplicaciones": 0,
+      "importeDocumento": 0,
+      "importeRetenciones": 0,
+      "importeTerceros": 0,
+      "mesesPlazoJustificacionDiferida": 0,
+      "numAplicaciones": 0,
+      "numBienPatrimonio": 0,
+      "numRetenciones": 0,
+      "numTerceros": 0,
+      "operacionContAgrupacion": "string",
+      "operacionContSubtipo": "string",
+      "operacionContTipo": "string",
+      "ordenPagoEjercicio": 0,
+      "ordenPagoNumero": 0,
+      "presupuesto": "string",
+      "referencia": {
+        "ejercicio": 0,
+        "numeroReferencia": 0,
+        "organico": "string",
+        "tipo": "string",
+        "sufijoDisposicion": 0,
+        "sufijoObligacion": 0
+      },
+      "subTipoJustificacionDiferida": "string",
+      "terceros": [
+        {
+          "cesionario": {
+            "nif": "string",
+            "ordenNif": 0,
+            "ordinalBancario": 0
+          },
+          "importeRetenido": 0,
+          "numeroRetenciones": 0,
+          "obligacion": {
+            "conceptoResumido": "string",
+            "ejercicio": 0,
+            "fechaProveedor": "string",
+            "fechaReconocimiento": "string",
+            "numAbono": 0,
+            "numero": 0,
+            "numeroProveedor": "string",
+            "tipoAbono": "string"
+          },
+          "retenciones": [
+            {
+              "base": 0,
+              "codigo": 0,
+              "importe": 0,
+              "porcentaje": 0
+            }
+          ],
+          "tercero": {
+            "nif": "string",
+            "ordenNif": 0,
+            "ordinalBancario": 0
+          },
+          "codigoAgencia": "string",
+          "codigoBanco": "string",
+          "cuentaCorriente": "string",
+          "digitoControl": "string",
+          "importe": 0,
+          "nombreCesionario": "string",
+          "nombreTercero": "string",
+          "sufijoDisposicion": 0,
+          "sufijoObligacion": 0
+        }
+      ],
+      "tipoBienPatrimonio": "string",
+      "tipoJustificacionDiferida": "string",
+      "urlInformacionAdj": "string"
+    }
+  ]
+}

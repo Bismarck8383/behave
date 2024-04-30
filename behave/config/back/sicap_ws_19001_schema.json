@@ -1,0 +1,62 @@
+{
+  "anyo": 0,
+  "codigoOperacion": "string",
+  "errores": [
+    {
+      "codigoSistema": "string",
+      "descripcion": "string",
+      "ejercicio": 0,
+      "nombreCampo": "string",
+      "numeroOperacion": 0,
+      "numeroOrden": 0
+    }
+  ],
+  "numeroOperacion": 0,
+  "pendienteEnviar": true,
+  "resultado": "string",
+  "facturas": [
+    {
+      "conceptoResumido": "string",
+      "ejercicioFactura": 0,
+      "estadoObligacion": "string",
+      "expediente": {
+        "codigo": "string",
+        "denSistemaAdjudicacion": "string",
+        "denominacionConvenio": "string",
+        "denominacionTipo": "string",
+        "descripcionExpediente": "string",
+        "esConvenio": "string",
+        "finalidad": "string",
+        "financiadoRT": "string",
+        "nominativo": "string",
+        "normativa": "string",
+        "proyectoGastos": 0,
+        "sistemaAdjudicacion": "string",
+        "subproyGastos": 0,
+        "tipo": 0
+      },
+      "fechaFactura": "string",
+      "fechaObligacion": "string",
+      "importeObligado": 0,
+      "importeObligadoRetencion": 0,
+      "importeOrdenado": 0,
+      "importeOrdenadoRetencion": 0,
+      "importePagado": 0,
+      "importePagadoRetencion": 0,
+      "importeReintegrado": 0,
+      "importeReintegradoRetencion": 0,
+      "nifTercero": "string",
+      "nombreTercero": "string",
+      "numFacturaProveedor": "string",
+      "numeroFactura": 0,
+      "referenciaIntervencion": {
+        "ejercicio": 0,
+        "numeroReferencia": 0,
+        "organico": "string",
+        "tipo": "string",
+        "sufijoDisposicion": 0,
+        "sufijoObligacion": 0
+      }
+    }
+  ]
+}

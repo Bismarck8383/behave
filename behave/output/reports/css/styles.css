@@ -154,15 +154,18 @@ span.first-word {
     margin-bottom: 10px;
 }
 
-.passed {
-    color: #007700;
-    /* Text in green */
+span.passed {
+  color: green;
 }
 
-.failed {
-    color: #DD0000;
-    /* Text in red */
+span.failed {
+  color: red;
 }
+
+span.no-result {
+  color: gray;
+}
+
 
 #totalSteps {
     text-align: center;
@@ -247,3 +250,5 @@ button {
         align-items: baseline;
     }
 }
+/* Agrega estas reglas al archivo css/styles.css */
+
